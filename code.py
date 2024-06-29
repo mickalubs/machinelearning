@@ -74,7 +74,7 @@ while True:
     # Extracting "_source" field and normalizing it into a DataFrame
     gogo = pd.json_normalize([entry["_source"] for entry in res])
 
-    #df = gogo[['outcome', 'symbol.keyword', 'btc_24h_now', 'eth_24h_now', 'candle_15min.low', 'candle_1d.closed', 'candle_2d.closed', 'candle_3d.closed', 'candle_4d.closed', 'candle_5d.closed', 'candle_6d.closed', 'candle_7d.closed', 'candle_14d.low', 'market_count_now', 'market_count_15m', 'market_count_30m', 'pct.24h', 'pct.24h_8d.avg', 'orderPrice', 'percentiles_1', 'percentiles_50', 'percentiles_75', 'percentiles_95', 'percentiles_99', 'volume.now', 'volume.90d.avg', 'worked', 'pnl', 'exit_btc', 'exit_eth', 'exit_market_count_now', 'exit_market_count_15min', 'exit_market_count_30min']]
+    # Select the features you'd like to work on out of your dataset
     df_live = gogo [["symbol.keyword","ABOVE","ABOVE_1H","ABOVE_1H_BIG","ABOVE_1H_STAMP","btc_24h_now","BUY_H_NEGATIVE","BUY_H_POSITIVE","cmc_rank","condition","eth_24h_now","EXTREME_ABOVE","INDICATOR_1","INDICATOR_2","INDICATOR_3","INDICATOR_4","INDICATOR_5","INDICATOR_6","INDICATOR_7","INDICATOR_8","INDICATOR_9","INDICATOR_10","INDICATOR_11","JUST_CROSS_ABOVE","macd","macd_sline","macd_btc","macd_btc_sline","MACD_DAY_CURVED","MACD_DAY_NEGATIVE","MACD_DAY_POSITIVE","MACD_DAY_POSITIVE_BY_2","MACD_DAY_POSITIVE_EXTREME","market_count_15m","market_count_30m","market_count_now","outcome","pct.24h","pct.24h_8d.avg","percentiles_1","percentiles_5","percentiles_25","percentiles_50","percentiles_75","percentiles_95","percentiles_99","pnl","price_diff_change","price_diff_change_10h","price_diff_change_1d","ROC","roc_9d","roc_9d_btc","ROC_CURVED","ROC_CURVED_DAY_NEGATIVE","ROC_CURVED_DAY_POSITIVE","ROC_CURVED_HOUR_NEGATIVE","ROC_CURVED_HOUR_POSITIVE","ROC_CURVED_NOW","ROC_H","rsi","rsi_btc","RSI_CURVED","RSI_CURVED_H","RSI_DOWN_H","RSI_H","RSI_UP","STILL_ABOVE","tendancies_pct_down","tendancies_pct_up","track_candle_down_avg","track_candle_down_count","track_candle_up_avg","track_candle_up_count","volume_bybit_90d","volume_bybit_now","volume.90d.avg","volume.now","WHOLE_MARKET_CURVED","worked"]]
 
     # Make a copy of the original dataset so we can work with it (feature engineering)
@@ -86,7 +86,7 @@ while True:
     for mickey in booleans_to_numeric:
         df[mickey] = df[mickey].apply(lambda x: 1 if x == True else 0)
 
-    # single convert string "win" to 1 or "lost" tp 0
+    # single convert string "win" to 1 or "lost" to 0
     df["outcome"] = df["outcome"].apply(lambda x: 1 if x == "win" else 0)
 
     mapping_symbol = {
